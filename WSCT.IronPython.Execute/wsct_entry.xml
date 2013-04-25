@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Assemblies>
+  <assembly name="WSCT.Core.dll">
+    <dll>WSCT.Core.dll</dll>
+    <pathToDll></pathToDll>
+  </assembly>
+  <assembly name="WSCT.Helpers.dll">
+    <dll>WSCT.Helpers.dll</dll>
+    <pathToDll></pathToDll>
+  </assembly>
+  <assembly name="WSCT.ISO7816.dll">
+    <dll>WSCT.ISO7816.dll</dll>
+    <pathToDll></pathToDll>
+  </assembly>
+  <assembly name="WSCT.Stack.dll">
+    <dll>WSCT.Stack.dll</dll>
+    <pathToDll></pathToDll>
+  </assembly>
+  <assembly name="WSCT.Wrapper.dll">
+    <dll>WSCT.Wrapper.dll</dll>
+    <pathToDll></pathToDll>
+  </assembly>
+</Assemblies>
