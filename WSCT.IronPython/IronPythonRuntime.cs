@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
 
-namespace IronPython
+namespace WSCT.IronPython
 {
     public class IronPythonRuntime
     {
@@ -42,6 +42,18 @@ namespace IronPython
         public IronPythonRuntime addAssembly(String assemblyFileName)
         {
             assemblyFileNames.Add(assemblyFileName);
+            return this;
+        }
+
+        /// <summary>
+        /// Declare assemblies contained in a repository to be added into Python Runtime
+        /// </summary>
+        /// <param name="assemblyRepository">Repository of assemblies to execute into Python Runtime</param>
+        /// <returns>The current object</returns>
+        public IronPythonRuntime addAssemblies(AssemblyRepository assemblyRepository)
+        {
+            foreach (AssemblyDescription description in assemblyRepository.assemblies)
+                addAssembly(description.pathToDll + description.dllName);
             return this;
         }
 

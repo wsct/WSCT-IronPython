@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IronPython;
 using WSCT.Helpers;
 
 namespace WSCT.IronPython.Execute
@@ -26,11 +25,7 @@ namespace WSCT.IronPython.Execute
 
             IronPythonRuntime iPyRuntime = new IronPythonRuntime(pythonFileName);
 
-            AssemblyRepository assemblies;
-            assemblies = SerializedObject<AssemblyRepository>.loadFromXml(xmlFileName);
-
-            foreach (AssemblyDescription description in assemblies.assemblies)
-                iPyRuntime.addAssembly(description.pathToDll + description.dllName);
+            iPyRuntime.addAssemblies(SerializedObject<AssemblyRepository>.loadFromXml(xmlFileName));
 
             iPyRuntime.execute();
 
