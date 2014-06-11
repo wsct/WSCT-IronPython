@@ -1,7 +1,10 @@
 ﻿import clr
 from WSCT.Helpers import *
 from WSCT.Core import *
+from WSCT.Core.Events import *
 from WSCT.Wrapper import *
+from WSCT.Wrapper.Desktop.Core import *
+from System import EventHandler, EventArgs
 
 def wsct_entry():
 	print "iPy >> Entry point"
@@ -16,20 +19,20 @@ class WSCTCoreDemo:
 	def initializeContext(self):
 		self.context = CardContext()
 		self.contextObserver = ContextObserverDemo(self.context)
-		self.context.establish()
-		self.context.listReaderGroups()
-		self.context.listReaders(self.context.groups[0])
+		self.context.Establish()
+		self.context.ListReaderGroups()
+		self.context.ListReaders(self.context.Groups[0])
 		
 	def terminateContext(self):
 		self.contextObserver.unsubscribe()
-		self.context.release()
+		self.context.Release()
 
 	def useReader(self, readerName):
 		print "iPy >> Reader to use:", readerName
 		self.channel = CardChannel(self.context, readerName)
 		self.channelObserver = ChannelObserverDemo(self.channel)
 
-		if self.channel.connect(ShareMode.SCARD_SHARE_SHARED, Protocol.SCARD_PROTOCOL_ANY) == ErrorCode.SCARD_S_SUCCESS:
+		if self.channel.Connect(ShareMode.Shared, Protocol.Any) == ErrorCode.Success:
 			pass
 
 class ContextObserverDemo:
@@ -38,37 +41,37 @@ class ContextObserverDemo:
 		self.subscribe()
 
 	def subscribe(self):
-		self.context.afterEstablishEvent += self.notifyEstablish
-		self.context.afterGetStatusChangeEvent += self.notifyGetStatusChange
-		self.context.afterListReaderGroupsEvent += self.notifyListReaderGroups
-		self.context.afterListReadersEvent += self.notifyListReaders
-		self.context.afterReleaseEvent += self.notifyRelease
+		self.context.AfterEstablishEvent += self.notifyEstablish
+		self.context.AfterGetStatusChangeEvent += self.notifyGetStatusChange
+		self.context.AfterListReaderGroupsEvent += self.notifyListReaderGroups
+		self.context.AfterListReadersEvent += self.notifyListReaders
+		self.context.AfterReleaseEvent += self.notifyRelease
 
 	def unsubscribe(self):
-		self.context.afterEstablishEvent -= self.notifyEstablish
-		self.context.afterGetStatusChangeEvent -= self.notifyGetStatusChange
-		self.context.afterListReaderGroupsEvent -= self.notifyListReaderGroups
-		self.context.afterListReadersEvent -= self.notifyListReaders
-		self.context.afterReleaseEvent -= self.notifyRelease
+		self.context.AfterEstablishEvent -= self.notifyEstablish
+		self.context.AfterGetStatusChangeEvent -= self.notifyGetStatusChange
+		self.context.AfterListReaderGroupsEvent -= self.notifyListReaderGroups
+		self.context.AfterListReadersEvent -= self.notifyListReaders
+		self.context.AfterReleaseEvent -= self.notifyRelease
 
-	def notifyEstablish(self, context, errorCode):
-		print "iPy >> establish(): %s" % errorCode
+	def notifyEstablish(self, sender, eventArgs):
+		print "iPy >> Establish(): %s" % eventArgs.ReturnValue
 
-	def notifyListReaders(self, context, group, errorCode):
-		print "iPy >> listReaders(): %s" % errorCode
-		print "       Readers found: %i" % context.readers.Count
-		for reader in context.readers:
+	def notifyListReaders(self, sender, eventArgs):
+		print "iPy >> listReaders(): %s" % eventArgs.ReturnValue
+		print "       Readers found: %i" % sender.Readers.Count
+		for reader in sender.Readers:
 			print "       Reader: %s" % reader
 
-	def notifyGetStatusChange(self, context, timeout, readerStates, errorCode):
-		print "iPy >> getStatusChange(): %s" % errorCode
+	def notifyGetStatusChange(self, sender, eventArgs):
+		print "iPy >> GetStatusChange(): %s" % eventArgs.ReturnValue
 
-	def notifyListReaderGroups(self, context, errorCode):
-		print "iPy >> listReaderGroups(): %s" % errorCode
-		print "       Groups found: %i" % context.groups.Count
+	def notifyListReaderGroups(self, sender, eventArgs):
+		print "iPy >> ListReaderGroups(): %s" % eventArgs.ReturnValue
+		print "       Groups found: %i" % sender.Groups.Count
 
-	def notifyRelease(self, context, errorCode):
-		print "iPy >> release(): %s" % errorCode
+	def notifyRelease(self, sender, eventArgs):
+		print "iPy >> Release(): %s" % eventArgs.ReturnValue
 
 class ChannelObserverDemo:
 	def __init__(self, channel):
@@ -76,30 +79,30 @@ class ChannelObserverDemo:
 		self.subscribe()
 
 	def subscribe(self):
-		self.channel.afterConnectEvent += self.notifyConnect;
-		self.channel.afterDisconnectEvent += self.notifyDisconnect;
-		self.channel.afterGetAttribEvent += self.notifyGetAttrib;
-		self.channel.afterReconnectEvent += self.notifyReconnect;
-		self.channel.afterTransmitEvent += self.notifyTransmit;
+		self.channel.AfterConnectEvent += self.notifyConnect;
+		self.channel.AfterDisconnectEvent += self.notifyDisconnect;
+		self.channel.AfterGetAttribEvent += self.notifyGetAttrib;
+		self.channel.AfterReconnectEvent += self.notifyReconnect;
+		self.channel.AfterTransmitEvent += self.notifyTransmit;
 
 	def unsubscribe(self):
-		self.channel.afterConnectEvent -= self.notifyConnect;
-		self.channel.afterDisconnectEvent -= self.notifyDisconnect;
-		self.channel.afterGetAttribEvent -= self.notifyGetAttrib;
-		self.channel.afterReconnectEvent -= self.notifyReconnect;
-		self.channel.afterTransmitEvent -= self.notifyTransmit;
+		self.channel.AfterConnectEvent -= self.notifyConnect;
+		self.channel.AfterDisconnectEvent -= self.notifyDisconnect;
+		self.channel.AfterGetAttribEvent -= self.notifyGetAttrib;
+		self.channel.AfterReconnectEvent -= self.notifyReconnect;
+		self.channel.AfterTransmitEvent -= self.notifyTransmit;
 
-	def notifyConnect(self, channel, shareMode, preferedProtocol, errorCode):
-		print "iPy >> connect(%s, %s): %s" % (shareMode, preferedProtocol, errorCode)
+	def notifyConnect(self, sender, eventArgs):
+		print "iPy >> connect(%s, %s): %s" % (eventArgs.ShareMode, eventArgs.PreferedProtocol, eventArgs.ReturnValue)
 
-	def notifyDisconnect(self, channel, disposition, errorCode):
-		print "iPy >> disconnect(%s): %s" % (disposition, errorCode)
+	def notifyDisconnect(self, sender, eventArgs):
+		print "iPy >> disconnect(%s): %s" % (eventArgs.Disposition, eventArgs.ReturnValue)
 	
-	def notifyGetAttrib(self, channel, attrib, buffer, errorCode):
-		print "iPy >> getAttrib(%s): %s" % (attrib, errorCode)
+	def notifyGetAttrib(self, sender, eventArgs):
+		print "iPy >> getAttrib(%s): %s" % (eventArgs.Attrib, eventArgs.ReturnValue)
 
-	def notifyReconnect(self, channel, shareMode, preferedProtocol, initialization, errorCode):
-		print "iPy >> reconnect(%s, %s, %s): %s" % (shareMode, preferedProtocol, initialization, errorCode)
+	def notifyReconnect(self, sender, eventArgs):
+		print "iPy >> reconnect(%s, %s, %s): %s" % (eventArgs.ShareMode, eventArgs.PreferedProtocol, eventArgs.Initialization, eventArgs.ReturnValue)
 
-	def notifyTransmit(self, channel, cardCommand, cardResponse, errorCode):
-		print "iPy >> transmit(%s): %s" % (cardCommand, errorCode)
+	def notifyTransmit(self, sender, eventArgs):
+		print "iPy >> transmit(%s): %s" % (eventArgs.Command, eventArgs.ReturnValue)

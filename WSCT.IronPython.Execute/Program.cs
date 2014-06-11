@@ -1,35 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WSCT.Helpers;
+﻿using WSCT.Helpers;
 
 namespace WSCT.IronPython.Execute
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            String pythonFileName;
+            string pythonFileName;
             if (args.Length == 0)
+            {
                 pythonFileName = @"wsct_entry.py";
+            }
             else
+            {
                 pythonFileName = args[0];
+            }
 
-            String xmlFileName;
+            string xmlFileName;
             if (args.Length == 0 || args.Length == 1)
+            {
                 xmlFileName = @"wsct_entry.xml";
+            }
             else
+            {
                 xmlFileName = args[1];
+            }
 
-            IronPythonRuntime iPyRuntime = new IronPythonRuntime(pythonFileName);
+            var iPyRuntime = new IronPythonRuntime(pythonFileName);
 
-            iPyRuntime.addAssemblies(SerializedObject<AssemblyRepository>.loadFromXml(xmlFileName));
+            iPyRuntime.AddAssemblies(SerializedObject<AssemblyRepository>.LoadFromXml(xmlFileName));
 
-            iPyRuntime.execute();
+            iPyRuntime.Execute();
 
-            dynamic demoObject = iPyRuntime.execute().scope.wsct_entry();
+            var demoObject = iPyRuntime.Execute().Scope.wsct_entry();
         }
     }
 }

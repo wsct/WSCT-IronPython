@@ -8,8 +8,8 @@ class ArrayOfBytesDemo:
 	def doIt(self):
 		print self.stringData
 
-		bytesArray = ArrayOfBytes.fromString(self.stringData)
+		bytesArray = BytesHelper.FromString(self.stringData)
 		print bytesArray
 
-		hexaString = ArrayOfBytes.toHexa(bytesArray)
+		hexaString = BytesHelper.ToHexa(bytesArray)
 		print hexaString

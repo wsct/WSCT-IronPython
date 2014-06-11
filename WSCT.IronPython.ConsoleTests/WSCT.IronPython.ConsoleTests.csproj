@@ -36,11 +36,7 @@
     <Reference Include="Microsoft.Scripting, Version=1.1.0.20, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -61,25 +57,33 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\WSCT Core\WSCT.Core\WSCT.Core.csproj">
-      <Project>{764a5311-a573-4774-a198-43a660167fc7}</Project>
-      <Name>WSCT.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\WSCT Core\WSCT.Helpers\WSCT.Helpers.csproj">
       <Project>{b95b0e58-9296-4a15-aa69-10a7b6dc2267}</Project>
       <Name>WSCT.Helpers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\WSCT Core\WSCT.ISO7816\WSCT.ISO7816.csproj">
-      <Project>{bdecf2a5-900e-4c5d-beee-7903f9145bc1}</Project>
-      <Name>WSCT.ISO7816</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\WSCT Core\WSCT.Stack\WSCT.Stack.csproj">
-      <Project>{4eabe8da-0bcb-4bc6-a571-7618ac0ec4b6}</Project>
-      <Name>WSCT.Stack</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\WSCT Core\WSCT.Wrapper\WSCT.Wrapper.csproj">
+    <ProjectReference Include="..\..\WSCT Core\WSCT.Wrapper.Desktop\WSCT.Wrapper.Desktop.csproj">
       <Project>{19b66e6e-7e5e-481a-8718-3f9c44212ad6}</Project>
-      <Name>WSCT.Wrapper</Name>
+      <Name>WSCT.Wrapper.Desktop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WSCT Core\WSCT.Wrapper.MacOSX\WSCT.Wrapper.MacOSX.csproj">
+      <Project>{0f6f8081-b090-4505-9fbc-f127aa18806f}</Project>
+      <Name>WSCT.Wrapper.MacOSX</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WSCT Core\WSCT.Wrapper.PCSCLite32\WSCT.Wrapper.PCSCLite32.csproj">
+      <Project>{8aae3e6a-d6fe-4b35-af27-731ce1996106}</Project>
+      <Name>WSCT.Wrapper.PCSCLite32</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WSCT Core\WSCT.Wrapper.PCSCLite64\WSCT.Wrapper.PCSCLite64.csproj">
+      <Project>{796a4ce8-2724-43c9-bcd8-5cfd331aa541}</Project>
+      <Name>WSCT.Wrapper.PCSCLite64</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WSCT Core\WSCT.Wrapper.WinSCard\WSCT.Wrapper.WinSCard.csproj">
+      <Project>{651952e8-6d49-44e6-ab52-3c4bd78255fa}</Project>
+      <Name>WSCT.Wrapper.WinSCard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WSCT Core\WSCT\WSCT.csproj">
+      <Project>{4eabe8da-0bcb-4bc6-a571-7618ac0ec4b6}</Project>
+      <Name>WSCT</Name>
     </ProjectReference>
     <ProjectReference Include="..\WSCT.IronPython\WSCT.IronPython.csproj">
       <Project>{dd746fd7-d82a-4824-9178-10cf51dcabb4}</Project>
