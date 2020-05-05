@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace WSCT.IronPython
 {
-
     /// <summary>
     /// 
     /// </summary>
@@ -13,9 +9,9 @@ namespace WSCT.IronPython
     {
         #region >> Fields
 
-        String _name;
-        String _dllName;
-        String _pathToDll;
+        private string _name;
+        private string _dllName;
+        private string _pathToDll;
 
         #endregion
 
@@ -37,40 +33,37 @@ namespace WSCT.IronPython
         /// 
         /// </summary>
         [XmlAttribute("name")]
-        public String name
+        public string Name
         {
-            get { return _name; }
-            set { _name = (value == "" ? null : value); }
+            get => _name;
+            set => _name = value == "" ? null : value;
         }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlElement("dll")]
-        public String dllName
+        public string DllName
         {
-            get { return _dllName; }
-            set { _dllName = (value == "" ? null : value); }
+            get => _dllName;
+            set => _dllName = value == "" ? null : value;
         }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlElement("pathToDll")]
-        public String pathToDll
+        public string PathToDll
         {
-            get { return _pathToDll; }
-            set { _pathToDll = (value == null ? "" : value); }
+            get => _pathToDll;
+            set => _pathToDll = value ?? "";
         }
 
         /// <summary>
         /// 
         /// </summary>
         [XmlIgnore]
-        public Boolean isValid
-        {
-            get { return (name != null && _dllName != null); }
-        }
+        public bool IsValid => (Name != null && _dllName != null);
 
         #endregion
     }

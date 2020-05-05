@@ -1,23 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Assemblies>
-  <assembly name="WSCT.Core.dll">
-    <dll>WSCT.Core.dll</dll>
+  <assembly name="WSCT.dll">
+    <dll>WSCT.dll</dll>
     <pathToDll></pathToDll>
   </assembly>
   <assembly name="WSCT.Helpers.dll">
     <dll>WSCT.Helpers.dll</dll>
     <pathToDll></pathToDll>
   </assembly>
-  <assembly name="WSCT.ISO7816.dll">
-    <dll>WSCT.ISO7816.dll</dll>
+  <assembly name="WSCT.Wrapper.Desktop.dll">
+    <dll>WSCT.Wrapper.Desktop.dll</dll>
     <pathToDll></pathToDll>
   </assembly>
-  <assembly name="WSCT.Stack.dll">
-    <dll>WSCT.Stack.dll</dll>
+  <assembly name="WSCT.Wrapper.MacOSX.dll">
+    <dll>WSCT.Wrapper.MacOSX.dll</dll>
     <pathToDll></pathToDll>
   </assembly>
-  <assembly name="WSCT.Wrapper.dll">
-    <dll>WSCT.Wrapper.dll</dll>
+  <assembly name="WSCT.Wrapper.PCSCLite32.dll">
+    <dll>WSCT.Wrapper.PCSCLite32.dll</dll>
+    <pathToDll></pathToDll>
+  </assembly>
+  <assembly name="WSCT.Wrapper.PCSCLite64.dll">
+    <dll>WSCT.Wrapper.PCSCLite64.dll</dll>
+    <pathToDll></pathToDll>
+  </assembly>
+  <assembly name="WSCT.Wrapper.WinSCard.dll">
+    <dll>WSCT.Wrapper.WinSCard.dll</dll>
+    <pathToDll></pathToDll>
+  </assembly>
+  <assembly name="WSCT.Helpers.dll">
+    <dll>WSCT.Wrapper.WinSCard.dll</dll>
     <pathToDll></pathToDll>
   </assembly>
 </Assemblies>

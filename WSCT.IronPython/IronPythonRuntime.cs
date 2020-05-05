@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
@@ -8,9 +8,9 @@ namespace WSCT.IronPython
 {
     public class IronPythonRuntime
     {
-        private readonly List<String> assemblyFileNames;
-        private readonly String ipySource;
-        private readonly ScriptEngine pythonEngine;
+        private readonly List<string> _assemblyFileNames;
+        private readonly string _ipySource;
+        private readonly ScriptEngine _pythonEngine;
 
         /// <summary>
         /// <see cref="ScriptScope"/> object used to access functions, data and classes in Python context.
@@ -22,13 +22,13 @@ namespace WSCT.IronPython
         /// Initializes a new instance.
         /// </summary>
         /// <param name="ipySourceFileName">Source file name</param>
-        public IronPythonRuntime(String ipySourceFileName)
+        public IronPythonRuntime(string ipySourceFileName)
         {
-            ipySource = ipySourceFileName;
-            assemblyFileNames = new List<string>();
+            _ipySource = ipySourceFileName;
+            _assemblyFileNames = new List<string>();
 
-            pythonEngine = Python.CreateEngine();
-            Scope = pythonEngine.CreateScope();
+            _pythonEngine = Python.CreateEngine();
+            Scope = _pythonEngine.CreateScope();
         }
 
         /// <summary>
@@ -36,9 +36,10 @@ namespace WSCT.IronPython
         /// </summary>
         /// <param name="assemblyFileName">File name of an assembly to execute into Python Runtime.</param>
         /// <returns>The current object.</returns>
-        public IronPythonRuntime AddAssembly(String assemblyFileName)
+        public IronPythonRuntime AddAssembly(string assemblyFileName)
         {
-            assemblyFileNames.Add(assemblyFileName);
+            _assemblyFileNames.Add(assemblyFileName);
+
             return this;
         }
 
@@ -49,9 +50,9 @@ namespace WSCT.IronPython
         /// <returns>The current object.</returns>
         public IronPythonRuntime AddAssemblies(AssemblyRepository assemblyRepository)
         {
-            foreach (var description in assemblyRepository.assemblies)
+            foreach (var description in assemblyRepository.Assemblies)
             {
-                AddAssembly(description.pathToDll + description.dllName);
+                AddAssembly(Path.Combine(description.PathToDll, description.DllName));
             }
             return this;
         }
@@ -62,12 +63,12 @@ namespace WSCT.IronPython
         /// <returns>The current object.</returns>
         public IronPythonRuntime Execute()
         {
-            foreach (var assemblyFileName in assemblyFileNames)
+            foreach (var assemblyFileName in _assemblyFileNames)
             {
-                pythonEngine.Runtime.LoadAssembly(Assembly.LoadFrom(assemblyFileName));
+                _pythonEngine.Runtime.LoadAssembly(Assembly.LoadFrom(assemblyFileName));
             }
 
-            pythonEngine.ExecuteFile(ipySource, Scope);
+            _pythonEngine.ExecuteFile(_ipySource, Scope);
 
             return this;
         }

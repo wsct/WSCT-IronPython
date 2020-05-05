@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.Linq;
 
@@ -15,8 +12,6 @@ namespace WSCT.IronPython
     {
         #region >> Fields
 
-        List<AssemblyDescription> _assemblies;
-
         #endregion
 
         #region >> Properties
@@ -25,23 +20,13 @@ namespace WSCT.IronPython
         /// Assemblies Count
         /// </summary>
         [XmlIgnore]
-        public int count
-        {
-            get
-            {
-                return _assemblies.Count;
-            }
-        }
+        public int Count => Assemblies.Count;
 
         /// <summary>
         /// 
         /// </summary>
         [XmlElement("assembly")]
-        public List<AssemblyDescription> assemblies
-        {
-            get { return _assemblies; }
-            set { _assemblies = value; }
-        }
+        public List<AssemblyDescription> Assemblies { get; set; }
 
         #endregion
 
@@ -52,7 +37,7 @@ namespace WSCT.IronPython
         /// </summary>
         public AssemblyRepository()
         {
-            _assemblies = new List<AssemblyDescription>();
+            Assemblies = new List<AssemblyDescription>();
         }
 
         #endregion
@@ -63,9 +48,9 @@ namespace WSCT.IronPython
         /// Add a new assemblyDesc descriptor to the manager
         /// </summary>
         /// <param name="assemblyDesc">Descriptor of the assemblyDesc to be added</param>
-        public void add(AssemblyDescription assemblyDesc)
+        public void Add(AssemblyDescription assemblyDesc)
         {
-            _assemblies.Add(assemblyDesc);
+            Assemblies.Add(assemblyDesc);
         }
 
         /// <summary>
@@ -73,9 +58,9 @@ namespace WSCT.IronPython
         /// </summary>
         /// <param name="assemblyName">Name of the assemblyDesc to look for</param>
         /// <returns><c>true</c> if the AssemblyDescription exists</returns>
-        public Boolean isValid(String assemblyName)
+        public bool IsValid(string assemblyName)
         {
-            return _assemblies.Where(a => a.name == assemblyName).FirstOrDefault() != null;
+            return Assemblies.FirstOrDefault(a => a.Name == assemblyName) != null;
         }
 
         /// <summary>
@@ -83,16 +68,9 @@ namespace WSCT.IronPython
         /// </summary>
         /// <param name="assemblyName"></param>
         /// <returns>The AssemblyDescription instance or null if not find</returns>
-        public AssemblyDescription get(String assemblyName)
+        public AssemblyDescription Get(string assemblyName)
         {
-            AssemblyDescription assemblyFound = null;
-            foreach (AssemblyDescription assembly in _assemblies)
-                if (assembly.name == assemblyName && assembly.isValid)
-                {
-                    assemblyFound = assembly;
-                    break;
-                }
-            return assemblyFound;
+            return Assemblies.FirstOrDefault(assembly => assembly.Name == assemblyName && assembly.IsValid);
         }
 
         #endregion

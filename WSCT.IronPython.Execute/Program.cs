@@ -32,7 +32,7 @@ namespace WSCT.IronPython.Execute
 
             iPyRuntime.Execute();
 
-            var demoObject = iPyRuntime.Execute().Scope.wsct_entry();
+            iPyRuntime.Execute().Scope.wsct_entry();
         }
     }
 }

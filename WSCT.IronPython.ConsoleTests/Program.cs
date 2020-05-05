@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Reflection;
 using IronPython.Hosting;
-using Microsoft.Scripting.Hosting;
 using WSCT.Core;
 using WSCT.Helpers;
-using WSCT.Wrapper;
 using WSCT.Wrapper.Desktop.Core;
 
 namespace WSCT.IronPython.ConsoleTests
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             // simpleExample(args);
             // wsctHelperExample(args);
@@ -21,19 +19,19 @@ namespace WSCT.IronPython.ConsoleTests
             Console.ReadKey(true);
         }
 
-        static void WsctCoreExample(string[] args)
+        private static void WsctCoreExample(string[] args)
         {
             var foregroundColor = Console.ForegroundColor;
 
             Console.WriteLine("C#  >> Initializing iPy runtime environment");
 
-            var helper = new IronPythonRuntime("wsctcore.py");
-            helper
+            var ironPythonRuntime = new IronPythonRuntime("wsctcore.py");
+            ironPythonRuntime
                 .AddAssembly("WSCT.Helpers.dll")
                 .AddAssembly("WSCT.dll")
                 .AddAssembly("WSCT.Wrapper.Desktop.dll")
                 .Execute();
-            var demoObject = helper.Scope.WSCTCoreDemo();
+            var demoObject = ironPythonRuntime.Scope.WSCTCoreDemo();
 
             Console.WriteLine("C#  >> Asking iPy to establish PC/SC connexion");
             demoObject.initializeContext();
@@ -60,11 +58,11 @@ namespace WSCT.IronPython.ConsoleTests
                 demoObject.useReader(readerState.ReaderName);
             }
 
-            Console.WriteLine("C#  >> Asking iPy to close PC/SC connexion");
+            Console.WriteLine("C#  >> Asking iPy to close PC/SC connection");
             demoObject.terminateContext();
         }
 
-        static void WsctHelperExample(string[] args)
+        private static void WsctHelperExample(string[] args)
         {
             var pythonEngine = Python.CreateEngine();
             pythonEngine.Runtime.LoadAssembly(Assembly.GetAssembly(typeof(BytesHelpers)));
@@ -74,7 +72,7 @@ namespace WSCT.IronPython.ConsoleTests
             demoObject.doIt();
         }
 
-        static void SimpleExample(string[] args)
+        private static void SimpleExample(string[] args)
         {
             // Use of ScriptRuntime
             var pythonRuntime = Python.CreateRuntime();

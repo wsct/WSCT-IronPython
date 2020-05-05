@@ -1,72 +1,36 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C59DAA24-1630-41D7-A42F-32015F834B08}</ProjectGuid>
+    <TargetFrameworks>net462;netcoreapp3.1</TargetFrameworks>
+    <Version>1.1.0.0</Version>
+    <Copyright>Copyright © Sylvain Vernois 2013-2020</Copyright>
+    <Product>WSCT</Product>
+    <Company>ENSICAEN</Company>
+    <Authors>Sylvain Vernois</Authors>
+    <PackageId>WSCT.IronPython.Execute</PackageId>
+    <RepositoryUrl>https://github.com/wsct/WSCT-IronPython</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/wsct/WSCT-IronPython</PackageProjectUrl>
+    <Description>Execution of Python scripts using IronPython</Description>
+    <ApplicationIcon></ApplicationIcon>
+    <StartupObject />
     <OutputType>Exe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WSCT.IronPython.Execute</RootNamespace>
-    <AssemblyName>WSCT.IronPython.Execute</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="Microsoft.CSharp" />
+    <None Remove="wsct_entry.py" />
+    <None Remove="wsct_entry.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="wsct_entry.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="wsct_entry.py">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wsct_entry.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\WSCT Core\WSCT.Helpers\WSCT.Helpers.csproj">
-      <Project>{B95B0E58-9296-4A15-AA69-10A7B6DC2267}</Project>
-      <Name>WSCT.Helpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WSCT.IronPython\WSCT.IronPython.csproj">
-      <Project>{dd746fd7-d82a-4824-9178-10cf51dcabb4}</Project>
-      <Name>WSCT.IronPython</Name>
-    </ProjectReference>
+    <PackageReference Include="WSCT.Wrapper.Desktop" Version="1.2.0" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <ItemGroup>
+    <ProjectReference Include="..\WSCT.IronPython\WSCT.IronPython.csproj" />
+  </ItemGroup>
 </Project>
